@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbdocenteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Docente">
+          <Key>
+            <PropertyRef Name="DocenteId" />
+          </Key>
+          <Property Name="DocenteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TipoDocumentoId" Type="int" />
+          <Property Name="NroDocumento" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Sexo" Type="varchar" MaxLength="15" />
+          <Property Name="Estado" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="TipoDocumento">
+          <Key>
+            <PropertyRef Name="TipoDocumentoId" />
+          </Key>
+          <Property Name="TipoDocumentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Siglas" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK_Docente_TipoDocumento">
+          <End Role="TipoDocumento" Type="Self.TipoDocumento" Multiplicity="0..1" />
+          <End Role="Docente" Type="Self.Docente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDocumento">
+              <PropertyRef Name="TipoDocumentoId" />
+            </Principal>
+            <Dependent Role="Docente">
+              <PropertyRef Name="TipoDocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbdocenteModelStoreContainer">
+          <EntitySet Name="Docente" EntityType="Self.Docente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoDocumento" EntityType="Self.TipoDocumento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Docente_TipoDocumento" Association="Self.FK_Docente_TipoDocumento">
+            <End Role="TipoDocumento" EntitySet="TipoDocumento" />
+            <End Role="Docente" EntitySet="Docente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbdocenteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dbdocenteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Docente" EntityType="dbdocenteModel.Docente" />
+          <EntitySet Name="TipoDocumento" EntityType="dbdocenteModel.TipoDocumento" />
+          <AssociationSet Name="FK_Docente_TipoDocumento" Association="dbdocenteModel.FK_Docente_TipoDocumento">
+            <End Role="TipoDocumento" EntitySet="TipoDocumento" />
+            <End Role="Docente" EntitySet="Docente" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Docente">
+          <Key>
+            <PropertyRef Name="DocenteId" />
+          </Key>
+          <Property Name="DocenteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TipoDocumentoId" Type="Int32" />
+          <Property Name="NroDocumento" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Sexo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TipoDocumento" Relationship="dbdocenteModel.FK_Docente_TipoDocumento" FromRole="Docente" ToRole="TipoDocumento" />
+        </EntityType>
+        <EntityType Name="TipoDocumento">
+          <Key>
+            <PropertyRef Name="TipoDocumentoId" />
+          </Key>
+          <Property Name="TipoDocumentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Siglas" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Docente" Relationship="dbdocenteModel.FK_Docente_TipoDocumento" FromRole="TipoDocumento" ToRole="Docente" />
+        </EntityType>
+        <Association Name="FK_Docente_TipoDocumento">
+          <End Type="dbdocenteModel.TipoDocumento" Role="TipoDocumento" Multiplicity="0..1" />
+          <End Type="dbdocenteModel.Docente" Role="Docente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDocumento">
+              <PropertyRef Name="TipoDocumentoId" />
+            </Principal>
+            <Dependent Role="Docente">
+              <PropertyRef Name="TipoDocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbdocenteModelStoreContainer" CdmEntityContainer="dbdocenteEntities">
+          <EntitySetMapping Name="Docente">
+            <EntityTypeMapping TypeName="dbdocenteModel.Docente">
+              <MappingFragment StoreEntitySet="Docente">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="NroDocumento" ColumnName="NroDocumento" />
+                <ScalarProperty Name="TipoDocumentoId" ColumnName="TipoDocumentoId" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DocenteId" ColumnName="DocenteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoDocumento">
+            <EntityTypeMapping TypeName="dbdocenteModel.TipoDocumento">
+              <MappingFragment StoreEntitySet="TipoDocumento">
+                <ScalarProperty Name="Siglas" ColumnName="Siglas" />
+                <ScalarProperty Name="TipoDocumentoId" ColumnName="TipoDocumentoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

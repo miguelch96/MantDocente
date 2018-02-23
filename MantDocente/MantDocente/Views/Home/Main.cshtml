@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Main";
+   
+}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Mantenimiento de docentes</h1>
+
+
+
+    <h2 class="sub-header">Lista de docentes</h2>
+    @if (TempData["message"] != null)
+    {
+        <div id="mensajeAlertaMain"class="alert alert-success">@TempData["message"]</div>
+    }
+      
+   
+    <div class="table-responsive">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Documento</th>
+                <th>Numero</th>
+                <th>Nacimiento</th>
+                <th>Sexo</th>
+                <th>Estado</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            @foreach(MantDocente.Models.Docente docente in ViewBag.ListaDocentes)
+            { 
+                <tr>
+                    <td>@docente.DocenteId</td>
+                    <td>@docente.Nombre</td>
+                    <td>@docente.Apellido</td>
+                    <td>@docente.TipoDocumento.Siglas</td>
+                    <td>@docente.NroDocumento</td>
+                    <td>@docente.FechaNacimiento</td>
+                    <td>@docente.Sexo</td>
+                    <td id="check">@docente.Estado</td>
+                    <td>
+                        <a href="@Url.Action("AddEditDocente",new { DocenteId = docente.DocenteId})"
+                           class="btn btn-warning btn-xs" id="btnEditar">Editar</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("DeleteDocente",new { DocenteId = docente.DocenteId})"
+                           class="btn btn-danger btn-xs" id="btnEliminar">Eliminar</a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+    
+    <div id="divMainList">Se listo correctamente a todos los docentes.</div>
+</div>
+

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbdocenteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Docente">
+    <Key>
+      <PropertyRef Name="DocenteId" />
+    </Key>
+    <Property Name="DocenteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="TipoDocumentoId" Type="int" />
+    <Property Name="NroDocumento" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="FechaNacimiento" Type="date" />
+    <Property Name="Sexo" Type="varchar" MaxLength="15" />
+    <Property Name="Estado" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="TipoDocumento">
+    <Key>
+      <PropertyRef Name="TipoDocumentoId" />
+    </Key>
+    <Property Name="TipoDocumentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Siglas" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <Association Name="FK_Docente_TipoDocumento">
+    <End Role="TipoDocumento" Type="Self.TipoDocumento" Multiplicity="0..1" />
+    <End Role="Docente" Type="Self.Docente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoDocumento">
+        <PropertyRef Name="TipoDocumentoId" />
+      </Principal>
+      <Dependent Role="Docente">
+        <PropertyRef Name="TipoDocumentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbdocenteModelStoreContainer">
+    <EntitySet Name="Docente" EntityType="Self.Docente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoDocumento" EntityType="Self.TipoDocumento" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Docente_TipoDocumento" Association="Self.FK_Docente_TipoDocumento">
+      <End Role="TipoDocumento" EntitySet="TipoDocumento" />
+      <End Role="Docente" EntitySet="Docente" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+@using System.Web.Optimization
+@model MantDocente.ViewModels.LoginViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+  
+    <title>Experimentos</title>
+    
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+
+    <div class="container">
+
+
+
+        <form method="post" class="form-signin">
+
+            <input type="hidden" id="action" name="action" value="login">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="inputEmail" class="sr-only">Email address</label> 
+            @Html.TextBoxFor(x => x.Usuario, new { @class = "form-control",
+             @placeholder = "Usuario" })
+            @Html.ValidationMessageFor(model => model.Usuario, "", new { @class = "text-danger" })
+            <label for="inputPassword" class="sr-only">Password</label>
+              @Html.PasswordFor(x => x.Password, new { @class = "form-control",
+             @placeholder = "Password" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+          
+            @if (TempData["message"] != null)
+            {
+            <div class="alert alert-danger">@TempData["message"]</div>
+            }
+            <button class="btn btn-lg btn-primary btn-block" id="btnIngresar" type="submit">
+                Sign
+                in
+            </button>
+        </form>
+
+    </div>
+    @Scripts.Render("~/bundles/lib")
+</body>
+</html>

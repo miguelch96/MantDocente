@@ -1,0 +1,83 @@
+﻿@model MantDocente.ViewModels.AddEditDocenteViewModel
+
+@{
+    ViewBag.Title = "Experimentos";
+}
+
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Mantenimiento de docentes</h1>
+
+
+         
+                <h2 class="sub-header">Nuevo docente</h2>
+
+          
+            @if (TempData["message"] != null)
+            {
+                <div id="mensajeAlertaAddEdit" class="alert alert-success">@TempData["message"]</div>
+            }
+          
+            <div class="col-sm-4">
+                <form  method="post">
+                    @Html.HiddenFor(x => x.DocenteId)
+                    <div class="form-group">
+                        <label for="email">Nombre:</label> 
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Apellido:</label> 
+                        @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="pwd">Fecha de nacimiento(aaaa-mm-dd):</label> 
+                        @Html.EditorFor(model => model.FechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Tipo de documento:</label>
+
+                       @Html.DropDownListFor(x => x.TipoDocumentoId, new SelectList(Model.LstTipoDocumento, "TipoDocumentoId", "Siglas"),
+       "[-Seleccionar-]", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TipoDocumentoId, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Numero de documento:</label> 
+                        @Html.EditorFor(model => model.NroDocumento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NroDocumento, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Sexo:</label>
+                        <div class="dropdown">
+                           
+                            <div class="radio">
+                                @Html.RadioButtonFor(model => model.Sexo, "Masculino", new { id = "rbMas", @checked = true })
+                                @Html.Label("rbMas", "Masculino")
+                            </div>
+                            <div class="radio">
+                                @Html.RadioButtonFor(model => model.Sexo, "Femenino", new { id = "rbFem" })
+                                @Html.Label("rbFem", "Femenino")
+                            </div>
+                           
+                            </div>
+                        @Html.ValidationMessageFor(model => model.Sexo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                           @Html.CheckBoxFor(m => m.Estado, new { @checked = "checked", id="cbEstado" })
+                            @Html.Label("cbEstado", "Estado")
+                        </label>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                    <button type="submit" id="btnSubmit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+
+        </div>
